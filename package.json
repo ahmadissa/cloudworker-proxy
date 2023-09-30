@@ -1,5 +1,5 @@
 {
-  "name": "cloudworker-proxy",
+  "name": "@ahmadissa/cloudworker-proxy",
   "version": "1.0.0",
   "description": "An api gateway for cloudflare workers",
   "license": "MIT",
