@@ -41,9 +41,9 @@ export default function rateLimitHandler({ type = 'IP', scope = 'default', limit
       count += 1;
     }
 
-    ctx.set('X-Ratelimit-Limit', limit);
-    ctx.set('X-Ratelimit-Count', count);
-    ctx.set('X-Ratelimit-Reset', reset);
+    // ctx.set('X-Ratelimit-Limit', limit);
+    // ctx.set('X-Ratelimit-Count', count);
+    // ctx.set('X-Ratelimit-Reset', reset);
 
     _.set(buckets, key, count);
 

@@ -1,33 +1,36 @@
-const { RecaptchaEnterpriseServiceClient } = require('@google-cloud/recaptcha-enterprise');
 async function createAssessment({
   projectID = 'your-project-id',
-  recaptchaKey = 'your-recaptcha-key',
+  API_KEY = 'GCP_API_KEY',
   token = 'action-token',
-  recaptchaAction = 'action-name',
+  siteKey = 'siteKey',
+  expectedAction = 'action-name',
 }) {
-  const client = new RecaptchaEnterpriseServiceClient();
-  const projectPath = client.projectPath(projectID);
-  const request = {
-    assessment: {
-      event: {
-        token: token,
-        siteKey: recaptchaKey,
+  const res = await fetch(
+    `https://recaptchaenterprise.googleapis.com/v1/projects/${projectID}/assessments?key=${API_KEY}`,
+    {
+      body: JSON.stringify({
+        event: {
+          token: token,
+          siteKey: siteKey,
+          expectedAction: expectedAction,
+        },
+      }),
+      headers: {
+        'Content-Type': 'application/json',
       },
+      method: 'POST',
     },
-    parent: projectPath,
-  };
-
-  const [response] = await client.createAssessment(request);
-
+  );
+  const response = await res.json();
   if (!response.tokenProperties.valid) {
     console.error(
       'The CreateAssessment call failed because the token was: ' +
         response.tokenProperties.invalidReason,
     );
 
-    return null;
+    return 0;
   }
-  if (response.tokenProperties.action === recaptchaAction) {
+  if (response.tokenProperties.action === expectedAction) {
     response.riskAnalysis.reasons.forEach((reason) => {
       console.log(reason);
     });
@@ -40,20 +43,21 @@ async function createAssessment({
     return null;
   }
 }
-export default function recaptcha(projectID, recaptchaKey) {
+export default function recaptcha({ projectID, API_KEY, siteKey }) {
   function getToken(headers) {
-    return { token: headers['G-Recaptcha-Token'], action: headers['G-Recaptcha-Action'] };
+    return { token: headers['g-recaptcha-token'], expectedAction: headers['g-recaptcha-action'] };
   }
 
   return async (ctx, next) => {
-    const { token, action } = getToken(ctx.request.headers);
+    const { token, expectedAction } = getToken(ctx.request.headers);
 
     const score =
       (await createAssessment({
         projectID: projectID,
-        recaptchaKey: recaptchaKey,
+        API_KEY: API_KEY,
         token: token,
-        recaptchaAction: action,
+        siteKey: siteKey,
+        expectedAction: expectedAction,
       })) || 0;
     if (score < 0.5) {
       ctx.status = 409;

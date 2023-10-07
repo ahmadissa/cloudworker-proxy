@@ -1,6 +1,6 @@
 {
   "name": "@ahmadissa/cloudworker-proxy",
-  "version": "1.0.2",
+  "version": "1.0.7",
   "description": "An api gateway for cloudflare workers",
   "license": "MIT",
   "repository": {
@@ -59,7 +59,6 @@
     ]
   },
   "dependencies": {
-    "@google-cloud/recaptcha-enterprise": "^4.0.1",
     "aws4fetch": "1.0.13",
     "cloudworker-router": "1.11.2",
     "cookie": "0.4.1",
