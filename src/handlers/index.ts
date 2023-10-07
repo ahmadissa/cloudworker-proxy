@@ -16,6 +16,7 @@ import s3 from './s3';
 import signature from './signature';
 import split from './split';
 import transform from './transform';
+import recaptcha from './recaptcha';
 
 export default {
   basicAuth,
@@ -36,4 +37,5 @@ export default {
   signature,
   split,
   transform,
+  recaptcha,
 };
