@@ -19,12 +19,12 @@ function filterCfHeaders(headers) {
 }
 
 export default function originHandler(options) {
-  const { localOriginOverride } = options;
+  const { localOriginOverride, backend } = options;
 
   return async (ctx) => {
     const url = process.env.LOCAL
       ? `${localOriginOverride || ctx.request.origin}${ctx.request.path}`
-      : ctx.request.href;
+      : `${backend}${ctx.request.path}`;
 
     const requestOptions = {
       headers: filterCfHeaders(ctx.request.headers),

@@ -1,16 +1,16 @@
 {
   "name": "@ahmadissa/cloudworker-proxy",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "An api gateway for cloudflare workers",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/markusahlstrand/cloudworker-proxy.git"
+    "url": "git+https://github.com/ahmadissa/cloudworker-proxy.git"
   },
   "bugs": {
-    "url": "https://github.com/markusahlstrand/cloudworker-proxy/issues"
+    "url": "https://github.com/ahmadissa/cloudworker-proxy/issues"
   },
-  "homepage": "https://github.com/markusahlstrand/cloudworker-proxy#readme",
+  "homepage": "https://github.com/ahmadissa/cloudworker-proxy#readme",
   "author": "Markus Ahlstrand",
   "keywords": [
     "cloudflare",
@@ -88,5 +88,9 @@
     "semantic-release": "^22.0.4",
     "typescript": "^5.2.2",
     "wrangler": "^3.7.0"
+  },
+  "directories": {
+    "example": "examples",
+    "test": "test"
   }
 }

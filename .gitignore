@@ -62,3 +62,4 @@ typings/
 
 # Serverless stuff
 .serverless
+dist/*
